@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso Maestro Pizzero - Conviértete en un experto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --red-pizza: #E53935;
+            --yellow-cheese: #FDD835;
+            --dark-text: #263238;
+            --light-bg: #FFFFFF;
+            --section-bg: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark-text);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            
+            background-image: url('img/fondo.png');
+            background-color: #fdfaf6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+        }
+
+        .accent-color { color: var(--red-pizza); }
+        .bg-accent-color { background-color: var(--red-pizza); }
+
+        .hidden-initially {
+            display: none;
+        }
+        
+        #courseInfoSection {
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        #mainHeader { 
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05); 
+        }
+        #mainHeader.header-is-visible {
+            opacity: 1;
+        }
+
+        #mainHeader .brand-text {
+            color: var(--dark-text);
+        }
+
+        .main-title {
+            font-size: 3rem;
+            sm:font-size: 4rem;
+            font-weight: 900;
+            color: var(--dark-text);
+            text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.3);
+            line-height: 1.1;
+        }
+        
+        .main-subtitle {
+             text-align: center;
+             margin-bottom: 2rem;
+             font-size: 1.25rem;
+             font-weight: 500;
+             color: #37474F;
+             text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px; 
+            margin: 0 auto; 
+            border-radius: 0.75rem; 
+            overflow: hidden;
+            border: 4px solid white;
+            box-shadow: 0 20px 40px -15px rgba(0,0,0, 0.2); 
+        }
+        
+        .wistia_responsive_padding { 
+            padding:56.25% 0 0 0; 
+            position:relative;
+        }
+        .wistia_responsive_wrapper { 
+            height:100%;
+            left:0;
+            position:absolute;
+            top:0;
+            width:100%;
+        }
+
+
+        #initialVideoPrompt {
+            text-align: center;
+            padding: 1.5rem 1rem; 
+            opacity: 1;
+            transition: opacity 0.8s ease-out, transform 0.5s ease-out;
+            margin-top: 2rem; 
+        }
+        #initialVideoPrompt.hidden-prompt {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        #initialVideoPrompt .prompt-icon {
+            font-size: 3rem;
+            color: var(--red-pizza);
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+        #initialVideoPrompt .prompt-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--dark-text);
+            text-shadow: 1px 1px 3px rgba(255,255,255,0.5);
+        }
+        
+        .button-primary {
+            background-image: linear-gradient(to top, #d32f2f, #f44336);
+            color: #FFFFFF; 
+            padding: 0.85rem 1.75rem; 
+            border-radius: 9999px;
+            font-weight: 700; 
+            text-transform: uppercase; 
+            letter-spacing: 0.05em; 
+            transition: all 0.3s ease-out;
+            box-shadow: 0 5px 15px rgba(229, 57, 53, 0.4); 
+            border: 2px solid #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none; 
+        }
+        .button-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(229, 57, 53, 0.5); 
+        }
+        .button-primary.large { 
+             padding: 1.25rem 3rem; 
+             font-size: 1.25rem; 
+        }
+        .button-primary.large i {
+            margin-left: 0.75rem; 
+        }
+
+        .section {
+            background-color: var(--section-bg);
+            padding: 4rem 2rem; 
+            border-radius: 1.5rem;
+            margin-bottom: 3rem; 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border: 1px solid #eeeeee;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 1;
+        }
+        .section > * {
+            position: relative;
+            z-index: 2;
+        }
+        
+        #para-quien-section {
+            background-image: url('img/pizzarra.png');
+            background-size: cover;
+            background-position: center;
+        }
+        #para-quien-section::before {
+            background-color: rgba(0,0,0,0.6);
+        }
+        #para-quien-section h2, #para-quien-section h3, #para-quien-section p {
+            color: #FFFFFF;
+        }
+        #para-quien-section .accent-color {
+            color: var(--yellow-cheese);
+        }
+
+        #problemas-section {
+            background-image: url('img/pizza.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #FFFFFF;
+        }
+        #problemas-section::before {
+            background: linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.3) 100%);
+        }
+
+        #instructora-section {
+            background-image: url('img/profe.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        #instructora-section .content-wrapper {
+             text-align: right;
+        }
+
+        #aprender-section {
+            background-image: url('img/pizzarra.png');
+            background-size: cover;
+            background-position: center;
+        }
+        #aprender-section::before {
+            background-color: rgba(0,0,0,0.7);
+        }
+         #aprender-section .section-title, #aprender-section .section-subtitle {
+             color: #FFFFFF;
+         }
+
+
+        #bonos-section {
+            background-image: url('img/4464061.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #FFFFFF;
+        }
+        #bonos-section::before {
+             background-color: rgba(38, 50, 56, 0.8);
+        }
+        
+        #beneficios-section {
+            background-image: url('img/pizzarra.png');
+            background-size: cover;
+            background-position: center;
+        }
+        #beneficios-section::before {
+            background-color: rgba(0,0,0,0.7);
+        }
+        #beneficios-section h2, #beneficios-section li {
+            color: #FFFFFF;
+        }
+        #beneficios-section ul li {
+            font-size: 1.1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+         #beneficios-section ul li i {
+            position: absolute;
+            left: 0;
+            top: 5px;
+            color: var(--yellow-cheese);
+         }
+
+
+        #testimonios-section {
+            background-image: url('img/alumnos.png');
+            background-size: cover;
+            background-position: center;
+        }
+         #testimonios-section::before {
+            background-color: rgba(255,255,255,0.7);
+         }
+        
+        #garantia-section {
+            background-image: url('img/pizzafondo.png');
+            background-size: cover;
+            background-position: center;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+        }
+        #garantia-section::before {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+        #garantia-section .section-title, #garantia-section p {
+            color: #FFFFFF;
+        }
+        #garantia-section .highlight {
+             color: var(--yellow-cheese);
+        }
+
+        #extra-course-section .course-card {
+            border-radius: 1.5rem;
+            overflow: hidden;
+            position: relative;
+            padding: 4rem 2rem;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            min-height: 400px;
+        }
+        #extra-course-section .course-card::before {
+            content: '';
+            position: absolute;
+            top:0; left:0; right:0; bottom:0;
+            background: linear-gradient(to right, rgba(0,0,0,0.2), rgba(0,0,0,0.8));
+            z-index: 1;
+        }
+         #extra-course-section .course-card-content {
+            position: relative;
+            z-index: 2;
+            color: #FFFFFF;
+            text-align: right;
+         }
+
+        #cta {
+            background-image: url('img/fondodos.jpg');
+            background-size: cover;
+            background-position: center bottom;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            min-height: 80vh;
+            text-align: center;
+        }
+         #cta h3, #cta p, #cta a {
+            position: relative;
+            z-index: 2;
+         }
+         #cta::before {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 60%);
+         }
+
+
+        .section-title {
+            font-size: 2.5rem; 
+            sm:font-size: 3rem;
+            font-weight: 900; 
+            margin-bottom: 0.5rem; 
+            text-align: center;
+            letter-spacing: -0.025em; 
+        }
+        .section-subtitle {
+            font-size: 1.25rem;
+            text-align: center;
+            font-weight: 500;
+            color: #546E7A;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .section-title.light-text { color: #FFFFFF; } 
+        .section-subtitle.light-text { color: #B0BEC5; }
+        .section-title .highlight { color: var(--red-pizza); }
+        .section-title .highlight-yellow { color: var(--yellow-cheese); text-shadow: 1px 1px 0px #c8a92e; } 
+        
+        .module-carousel-container {
+            overflow-x: auto;
+            white-space: nowrap;
+            padding-bottom: 1.5rem;
+        }
+        .module-grid { display: inline-flex; gap: 1.5rem; }
+        .module-card {
+            background-color: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 280px;
+            flex-shrink: 0;
+        }
+        #aprender-section .module-card {
+             background-color: rgba(255,255,255,0.9);
+        }
+
+        .module-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+        }
+        .module-card i { font-size: 2.5rem; color: var(--red-pizza); margin-bottom: 1rem; }
+        .module-card h4 { font-size: 1.25rem; font-weight: 700; color: var(--dark-text); line-height: 1.3; }
+
+        .bonus-item {
+            background-color: var(--light-bg);
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem;
+            border: 1px solid #eeeeee;
+        }
+        #bonos-section .bonus-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255,255,255,0.2);
+        }
+        #bonos-section .bonus-item-title, #bonos-section .bonus-item-description {
+            color: #FFFFFF;
+        }
+        
+        .bonus-item:hover { box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .bonus-item-content { flex: 1; }
+        .bonus-item-tag { display: inline-block; background-color: var(--yellow-cheese); color: var(--dark-text); padding: 0.35rem 1rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 700; margin-bottom: 1rem; }
+        .bonus-item-title { font-size: 1.75rem; font-weight: 800; color: var(--dark-text); margin-bottom: 0.75rem; }
+        .bonus-item-description { color: #546E7A; line-height: 1.6; }
+        .bonus-item-icon i { font-size: 4rem; color: var(--red-pizza); text-align: center; width: 100px; }
+        
+        .testimonial-gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 1rem;
+            border: 4px solid #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+        .testimonial-gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        .comment-card {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+        .comment-card p {
+            color: #546E7A;
+        }
+         .comment-card .comment-author {
+            font-weight: 700;
+            color: var(--dark-text);
+         }
+        .comment-card .comment-rating i {
+            color: var(--yellow-cheese);
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Encabezado adaptable -->
+    <header id="mainHeader" class="py-3 shadow-md sticky top-0 z-50 hidden-initially"> 
+        <div class="container mx-auto max-w-screen-xl px-4 sm:px-6 flex justify-between items-center">
+            <div class="flex-shrink-0"> 
+                 <a href="#" class="brand-text font-bold text-2xl flex items-center"><i class="fas fa-pizza-slice accent-color mr-2"></i>Maestro Pizzero</a>
+            </div>
+            <div class="flex-shrink-0 text-right">
+                <a href="https://go.hotmart.com/S100288541D?ap=c7d3" target="_blank" class="button-primary text-xs px-4 py-2"> 
+                    ¡Quiero mi Oferta! <i class="fas fa-tags ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto max-w-screen-xl p-4 sm:p-6 lg:p-8">
+        <div class="min-h-screen flex flex-col justify-center items-center text-center -mt-20">
+            <div id="videoSectionContainer" class="w-full"> 
+                 <h1 class="main-title mb-4">
+                    CONVIÉRTETE EN <br><span class="accent-color">MAESTRO PIZZERO</span>
+                </h1>
+                <p class="main-subtitle max-w-3xl mx-auto">
+                    DESCUBRE Y APLICA EL PASO A PASO QUE TE PERMITIRÁ PREPARAR LAS MEJORES PIZZAS EN TAN SOLO 15 DÍAS
+                </p>
+                <div class="video-container">
+                     <div class="wistia_responsive_padding">
+                        <div class="wistia_responsive_wrapper">
+                            <div class="wistia_embed wistia_async_ggtrprfaxd" style="height:100%;width:100%;">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div id="initialVideoPrompt">
+                <i class="fas fa-arrow-up prompt-icon animate-bounce"></i>
+                <p class="prompt-text">¡Mira el video para descubrir el secreto de la pizza perfecta!</p>
+            </div>
+        </div>
+        
+        <div id="courseInfoSection" class="hidden-initially">
+            <div class="text-center mb-12 mt-12 relative z-10">
+                <a href="https://go.hotmart.com/S100288541D?ap=c7d3" target="_blank" class="button-primary large animate-pulse">
+                    ¡QUIERO APROVECHAR ESTA OFERTA! <i class="fas fa-rocket ml-2"></i>
+                </a>
+             </div>
+        
+            <!-- ¿PARA QUIÉN ES ESTE CURSO? -->
+            <section id="para-quien-section" class="section">
+                 <h2 class="section-title">¿Para Quién es este <span class="highlight">Curso</span>?</h2>
+                 <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+                     <div class="text-center">
+                         <i class="fas fa-hat-chef text-5xl accent-color mb-4"></i>
+                         <h3 class="text-xl font-bold mb-2">Aficionados a la Cocina</h3>
+                         <p class="text-gray-200">Para aficionados sin experiencia específica en la elaboración de pizza que quieren aprender de verdad.</p>
+                     </div>
+                     <div class="text-center">
+                         <i class="fas fa-store text-5xl accent-color mb-4"></i>
+                         <h3 class="text-xl font-bold mb-2">Emprendedores</h3>
+                         <p class="text-gray-200">Personas que deseen emprender su propio negocio y obtener una rápida salida laboral con un producto amado por todos.</p>
+                     </div>
+                     <div class="text-center">
+                         <i class="fas fa-heart text-5xl accent-color mb-4"></i>
+                         <h3 class="text-xl font-bold mb-2">Fanáticos de la Pizza</h3>
+                         <p class="text-gray-200">Para todos aquellos fanáticos de la pizza que quieren dominar el arte y convertirse en un gran pizzero.</p>
+                     </div>
+                 </div>
+            </section>
+    
+            <!-- PROBLEMATICAS -->
+            <section id="problemas-section" class="section">
+                <div class="content-wrapper md:w-1/2 lg:w-2/3">
+                    <h2 class="section-title light-text text-left">¿Te Suena <span class="highlight-yellow">Familiar</span>?</h2>
+                    <p class="section-subtitle light-text text-left max-w-full">Más del 90% de los estudiantes llegan con alguna de estas problemáticas:</p>
+                    <div class="space-y-4 text-lg text-gray-200">
+                        <p><i class="fas fa-times-circle accent-color mr-3"></i>Su masa no crece, les queda dura, agrietada y se rompe.</p>
+                        <p><i class="fas fa-times-circle accent-color mr-3"></i>No saben qué harina y levadura es la correcta para usar.</p>
+                        <p><i class="fas fa-times-circle accent-color mr-3"></i>En el horno sus pizzas se encogen o no se cocinan bien.</p>
+                        <p><i class="fas fa-times-circle accent-color mr-3"></i>No saben la temperatura y el tiempo correcto para hornear en casa.</p>
+                        <p><i class="fas fa-times-circle accent-color mr-3"></i>No tienen claro cuánta masa usar para diferentes tamaños de pizza.</p>
+                    </div>
+                    <p class="text-left font-bold text-2xl mt-8 text-yellow-300">¡Este curso es la solución que estabas buscando!</p>
+                </div>
+            </section>
+            
+            <!-- SECCIÓN CONOCE A TU INSTRUCTORA -->
+            <section id="instructora-section" class="section">
+                <div class="content-wrapper md:w-1/2">
+                    <h2 class="section-title text-right">Conoce a tu <span class="highlight">Instructora</span></h2>
+                    <h3 class="text-3xl font-bold accent-color mb-3 text-right">¡Hola! Soy María Jaureguiberry</h3>
+                    <p class="text-lg leading-relaxed mb-4 text-gray-600 text-right">
+                       Soy Instructora, Cocinera y Maestra Pizzera. Con más de 15 años de experiencia, quiero ser tu guía en este delicioso viaje. 🍕
+                    </p>
+                    <p class="leading-relaxed text-gray-500 mb-4 text-right">
+                        Hoy, me dedico a ayudar a todos aquellos que deseen emprender en el mundo de la pizza. Mi meta es que te conviertas en el Maestro Pizzero que sueñas ser.
+                    </p>
+                </div>
+            </section>
+            
+            <!-- SECCIÓN DE CONTENIDO DEL CURSO -->
+            <section id="aprender-section" class="section">
+                <h2 class="section-title">¿Qué vas a <span class="highlight">Aprender</span>?</h2>
+                <h3 class="section-subtitle">El entrenamiento de pizzería más completo en español.</h3>
+                <div class="module-carousel-container">
+                    <div class="module-grid">
+                        <!-- Módulos generados aquí por JS -->
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECCIÓN DE BONOS -->
+            <section id="bonos-section" class="section">
+                <h2 class="section-title light-text">Y de Regalo... <span class="highlight-yellow">Bonos Exclusivos</span></h2>
+                <p class="section-subtitle light-text">Al inscribirte hoy, recibirás acceso inmediato a estos regalos valorados en más de $150 USD.</p>
+                <div class="space-y-6 max-w-4xl mx-auto mt-12">
+    
+                    <!-- Bono 1 -->
+                    <div class="bonus-item">
+                        <div class="bonus-item-icon"><i class="fas fa-lightbulb"></i></div>
+                        <div class="bonus-item-content">
+                            <span class="bonus-item-tag">Bono #1</span>
+                            <h3 class="bonus-item-title">Consejos para Emprendedores</h3>
+                            <p class="bonus-item-description">Clase en video con consejos clave para comenzar tu negocio.</p>
+                        </div>
+                    </div>
+                    <!-- Bono 2 -->
+                    <div class="bonus-item">
+                        <div class="bonus-item-icon"><i class="fas fa-moon"></i></div>
+                        <div class="bonus-item-content">
+                            <span class="bonus-item-tag">Bono #2</span>
+                            <h3 class="bonus-item-title">Receta de Calzone</h3>
+                            <p class="bonus-item-description">Aprende a preparar, rellenar y hornear esta delicia italiana.</p>
+                        </div>
+                    </div>
+                    <!-- Bono 3 -->
+                    <div class="bonus-item">
+                        <div class="bonus-item-icon"><i class="fas fa-book-open"></i></div>
+                        <div class="bonus-item-content">
+                            <span class="bonus-item-tag">Bono #3</span>
+                            <h3 class="bonus-item-title">Ebook de Soporte PDF</h3>
+                            <p class="bonus-item-description">Un PDF descargable con el material más relevante de la capacitación.</p>
+                        </div>
+                    </div>
+                     <!-- Bono 4 -->
+                    <div class="bonus-item">
+                        <div class="bonus-item-icon"><i class="fab fa-telegram-plane"></i></div>
+                        <div class="bonus-item-content">
+                            <span class="bonus-item-tag">Bono #4</span>
+                            <h3 class="bonus-item-title">Acceso al Grupo Privado</h3>
+                            <p class="bonus-item-description">Únete a nuestra comunidad para resolver dudas y compartir experiencias.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+             <!-- BENEFICIOS DEL PROGRAMA -->
+            <section id="beneficios-section" class="section">
+                <h2 class="section-title light-text">Beneficios del <span class="highlight-yellow">Programa</span></h2>
+                <div class="max-w-4xl mx-auto mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <ul class="space-y-4">
+                        <li><i class="fas fa-check-circle"></i>Recibirás el acceso ilimitado y PARA TODA LA VIDA a la plataforma virtual. Son más de 56 clases en video.</li>
+                        <li><i class="fas fa-check-circle"></i>Más de 10 Horas de Contenido Práctico y Material Complementario.</li>
+                        <li><i class="fas fa-check-circle"></i>Realizarás un Único Pago y Tu Acceso es Para Toda La Vida. Sin pagos extra por nuevas clases.</li>
+                    </ul>
+                     <ul class="space-y-4">
+                        <li><i class="fas fa-check-circle"></i>Obtendrás un Certificado Digital de Finalización, descargable e imprimible.</li>
+                        <li><i class="fas fa-check-circle"></i>Acceso a la Comunidad de Alumnos en Telegram para resolver tus dudas con María.</li>
+                        <li><i class="fas fa-check-circle"></i>Un Módulo Completo con más de 10 Clases Exclusivas Para quienes deseen Emprender.</li>
+                        <li><i class="fas fa-check-circle"></i>Tendrás 7 días de Garantía para probar el Programa, si no te gusta te devolvemos el 100% de tu dinero.</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- TESTIMONIOS -->
+             <section id="testimonios-section" class="section">
+                <h2 class="section-title">Testimonios de <span class="highlight">Alumnos Felices</span></h2>
+                <h3 class="section-subtitle">¡Si ellos pudieron, tú también puedes!</h3>
+                <div class="testimonial-gallery grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <img src="img/tes1.jpeg" alt="Testimonio de alumno 1">
+                    <img src="img/tes2.jpeg" alt="Testimonio de alumno 2">
+                    <img src="img/tes3.jpeg" alt="Testimonio de alumno 3">
+                    <img src="img/tes4.jpeg" alt="Testimonio de alumno 4">
+                    <img src="img/tes5.jpeg" alt="Testimonio de alumno 5">
+                    <img src="img/tes6.jpeg" alt="Testimonio de alumno 6">
+                </div>
+            </section>
+    
+            <!-- GARANTÍA -->
+            <section id="garantia-section" class="section">
+                <div class="md:w-1/2">
+                    <h2 class="section-title text-left">Garantía de Satisfacción <br>de <span class="highlight">7 Días</span></h2>
+                     <p class="text-lg leading-relaxed mb-4">
+                       Tu compra es 100% segura y sin riesgos. Tienes 7 días a partir de la compra para probar nuestro Curso de Pizzas. Si dentro de ese período el programa NO cumple y/o supera tus expectativas, te devolvemos tu dinero SIN hacer preguntas.
+                    </p>
+                    <p class="font-bold">Te lo garantiza Hotmart®, la plataforma donde vas a realizar el pago.</p>
+                </div>
+            </section>
+            
+             <!-- CURSO EXTRA -->
+            <section id="extra-course-section" class="section bg-transparent border-none shadow-none p-0">
+                <h2 class="section-title text-center mb-8">¡Y ESO NO ES TODO! <br>LLÉVATE UN CURSO ADICIONAL... <span class="highlight">A ELECCIÓN</span></h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Opción 1: Repostería -->
+                    <div class="course-card" style="background-image: url('img/reposteria.png');">
+                        <div class="course-card-content w-full md:w-1/2 ml-auto">
+                            <h3 class="text-3xl font-bold mb-3">¡Repostería Creativa!</h3>
+                            <p class="mb-4">Donde aprenderás técnicas de pastelería fina, contiene 7 Módulos.</p>
+                            <a href="https://wa.link/0ozn59" target="_blank" class="button-primary">Reclamar</a>
+                        </div>
+                    </div>
+                    <!-- Opción 2: Jabones -->
+                    <div class="course-card" style="background-image: url('img/jabones.jpg');">
+                         <div class="course-card-content w-full md:w-1/2 ml-auto">
+                            <h3 class="text-3xl font-bold mb-3">Creación de Jabones Artesanales</h3>
+                            <p class="mb-4">Para elaborar productos naturales de alta calidad.</p>
+                            <a href="https://wa.link/h7gfav" target="_blank" class="button-primary">Reclamar</a>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center mt-6 text-gray-500 font-semibold">* El reclamo del curso adicional se realiza después de la compra del curso de Maestro Pizzero.</p>
+            </section>
+
+
+            <!-- CTA FINAL -->
+            <section id="cta" class="section">
+                <h3 class="font-bold text-white mb-2 text-3xl">¡Comienza Hoy Mismo!</h3>
+                <p class="text-yellow-200 text-lg mb-4">Acceso para siempre por un único pago</p>
+                <p class="max-w-3xl mx-auto mb-4 text-7xl font-black text-white">
+                    $35 USD
+                </p>
+                <p class="text-yellow-200 font-semibold mb-8 text-2xl"><span class="line-through opacity-70 mr-2">$139</span>¡AHORRA 75% HOY!</p>
+                <a href="https://go.hotmart.com/S100288541D?ap=c7d3" target="_blank" class="button-primary large text-lg sm:text-xl">
+                    ¡QUIERO SER UN MAESTRO PIZZERO! <i class="fas fa-arrow-right ml-3"></i>
+                </a>
+            </section>
+
+            <!-- COMENTARIOS -->
+            <section class="section">
+                <h2 class="section-title">¡DEJA TU <span class="highlight">COMENTARIO</span>!</h2>
+                <div class="max-w-4xl mx-auto mt-8 space-y-6">
+                   <!-- Comentario 1 -->
+                   <div class="comment-card">
+                       <div class="flex items-start">
+                           <img src="https://placehold.co/60x60/FDD835/263238?text=JS" class="rounded-full mr-4" alt="Avatar">
+                           <div>
+                               <p class="comment-author">Juana Sarmiento</p>
+                               <div class="comment-rating text-sm">
+                                   <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                               </div>
+                               <p class="mt-2">"¡El mejor curso! Antes mis masas eran un desastre. Ahora mis hijos dicen que hago la mejor pizza del mundo. Gracias María por explicar todo tan fácil."</p>
+                           </div>
+                       </div>
+                   </div>
+                   <!-- Comentario 2 -->
+                    <div class="comment-card">
+                       <div class="flex items-start">
+                           <img src="https://placehold.co/60x60/E53935/FFFFFF?text=RP" class="rounded-full mr-4" alt="Avatar">
+                           <div>
+                               <p class="comment-author">Roberto Paz</p>
+                               <div class="comment-rating text-sm">
+                                   <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                               </div>
+                               <p class="mt-2">"Compré el curso con la idea de empezar un pequeño negocio y superó mis expectativas. La sección de costos y el plan de negocio son oro puro. Ya estoy vendiendo pizzas los fines de semana."</p>
+                           </div>
+                       </div>
+                   </div>
+                    <!-- Comentario 3 -->
+                    <div class="comment-card">
+                       <div class="flex items-start">
+                           <img src="https://placehold.co/60x60/4CAF50/FFFFFF?text=CM" class="rounded-full mr-4" alt="Avatar">
+                           <div>
+                               <p class="comment-author">Carolina Mendez</p>
+                               <div class="comment-rating text-sm">
+                                   <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                               </div>
+                               <p class="mt-2">"Me encantó. Soy fanática de la pizza napolitana y con las técnicas que enseña María, ¡por fin me sale perfecta! Y de regalo elegí el curso de repostería, ¡una maravilla!"</p>
+                           </div>
+                       </div>
+                   </div>
+                </div>
+            </section>
+            
+            <footer class="text-center py-8 mt-8">
+                <p class="text-sm text-gray-500">© <span id="currentYear"></span> Maestro Pizzero. Todos los derechos reservados.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        const modules = [
+            { icon: 'fa-wheat-awn', title: 'Materia Prima Esencial' },
+            { icon: 'fa-hand-paper', title: 'Amasado Manual Perfecto' },
+            { icon: 'fa-blender', title: 'Amasado con Máquina' },
+            { icon: 'fa-pizza-slice', title: 'Pizza de Molde Clásica' },
+            { icon: 'fa-pepper-hot', title: 'Pizza a la Piedra Rústica' },
+            { icon: 'fa-temperature-high', title: 'Secretos del Horneado' },
+            { icon: 'fa-seedling', title: 'Salsa Pizzera Irresistible' },
+            { icon: 'fa-cheese', title: 'Pizza con Borde de Queso' },
+            { icon: 'fa-monument', title: 'Estilos: Napolitana y Romana' },
+            { icon: 'fa-building-columns', title: 'Estilo Neoyorquino' },
+            { icon: 'fa-calculator', title: 'Costos para tu Negocio' },
+            { icon: 'fa-lightbulb', title: 'Tu Plan de Éxito' }
+        ];
+
+        function renderModules() {
+            const grid = document.querySelector('.module-grid');
+            if (!grid) return;
+            grid.innerHTML = modules.map((module) => `
+                <div class="module-card">
+                    <i class="fas ${module.icon}"></i>
+                    <h4>${module.title}</h4>
+                </div>
+            `).join('');
+        }
+       
+        const mainHeader = document.getElementById('mainHeader');
+        const courseInfoSection = document.getElementById('courseInfoSection');
+        const initialVideoPrompt = document.getElementById('initialVideoPrompt'); 
+        const videoSectionContainer = document.getElementById('videoSectionContainer'); 
+        
+        let contentUnlocked = false;
+
+        function unlockContent() {
+            if (contentUnlocked) return; 
+            contentUnlocked = true;
+            
+            if (initialVideoPrompt) {
+                initialVideoPrompt.classList.add('hidden-prompt');
+                setTimeout(() => {
+                    if (initialVideoPrompt) initialVideoPrompt.style.display = 'none';
+                }, 800); 
+            }
+
+            if (courseInfoSection) { 
+                courseInfoSection.classList.remove('hidden-initially');
+                setTimeout(() => { // Agrega un pequeño retraso para permitir que el display se aplique antes de la transición
+                     courseInfoSection.style.opacity = '1';
+                }, 50);
+            }
+
+            if (mainHeader) {
+                mainHeader.classList.remove('hidden-initially');
+                requestAnimationFrame(() => { 
+                    mainHeader.classList.add('header-is-visible'); 
+                });
+            }
+
+            // Mover la sección del video hacia arriba para que se integre con el resto de la página
+            if(videoSectionContainer){
+                videoSectionContainer.parentElement.classList.remove('min-h-screen', 'flex', 'flex-col', 'justify-center', 'items-center');
+                videoSectionContainer.parentElement.classList.add('pt-24');
+            }
+        }
+       
+        window.addEventListener('load', () => {
+             renderModules();
+             // El contenido se desbloqueará después de 2 minutos y 30 segundos (150 segundos)
+             const unlockDelayInSeconds = 150;
+             setTimeout(unlockContent, unlockDelayInSeconds * 1000);
+        });
+        
+    </script>
+</body>
+</html>
