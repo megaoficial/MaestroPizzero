@@ -49,24 +49,6 @@
             transition: opacity 1.5s ease-in-out;
         }
 
-        .main-title {
-            font-size: 3rem;
-            sm:font-size: 4rem;
-            font-weight: 900;
-            color: var(--dark-text);
-            text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.3);
-            line-height: 1.1;
-        }
-        
-        .main-subtitle {
-             text-align: center;
-             margin-bottom: 2rem;
-             font-size: 1.25rem;
-             font-weight: 500;
-             color: #37474F;
-             text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
-        }
-
         .video-container {
             position: relative;
             width: 100%;
@@ -111,8 +93,8 @@
         #initialVideoPrompt .prompt-text {
             font-size: 1.5rem;
             font-weight: 600;
-            color: var(--dark-text);
-            text-shadow: 1px 1px 3px rgba(255,255,255,0.5);
+            color: #FFFFFF;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
         }
         
         .button-primary {
@@ -430,9 +412,10 @@
     </style>
 </head>
 <body class="antialiased">
+    <div id="page-overlay" class="fixed inset-0 bg-black bg-opacity-70 z-30 transition-opacity duration-1000 ease-in-out"></div>
 
     <div class="container mx-auto max-w-screen-xl p-4 sm:p-6 lg:p-8">
-        <div class="min-h-screen flex flex-col justify-center items-center text-center pt-8">
+        <div class="min-h-screen flex flex-col justify-center items-center text-center pt-8 relative z-40">
             <div id="videoSectionContainer" class="w-full"> 
                 <div class="video-container">
                      <div class="wistia_responsive_padding">
@@ -444,13 +427,13 @@
             </div>
     
             <div id="initialVideoPrompt">
-                <i class="fas fa-arrow-up prompt-icon animate-bounce"></i>
-                <p class="prompt-text">¡Mira el video para descubrir el secreto de la pizza perfecta!</p>
+                <i class="fas fa-arrow-up prompt-icon"></i>
+                <p class="prompt-text text-white text-shadow-lg">¡Mira el video para descubrir el secreto de la pizza perfecta!</p>
             </div>
         </div>
         
         <div id="courseInfoSection" class="hidden-initially">
-            <div class="text-center mb-12 mt-12 relative z-10">
+            <div class="text-center mb-12 relative z-10">
                 <div class="inline-block bg-white/60 backdrop-blur-sm p-6 md:p-8 rounded-2xl shadow-lg border">
                     <p class="font-semibold text-2xl mb-2 text-gray-800">¡Aprovecha esta mega oferta!</p>
                     <div class="text-8xl lg:text-9xl font-black my-2 text-red-600" style="text-shadow: 3px 3px 0px var(--yellow-cheese), 6px 6px 0px rgba(0,0,0,0.1);">2x1</div>
@@ -655,7 +638,7 @@
 
             <!-- COMENTARIOS -->
             <section class="section">
-                <h2 class="section-title">¡DEJA TU <span class="highlight">COMENTARIO</span>!</h2>
+                <h2 class="section-title">¿QUÉ DICEN NUESTROS <span class="highlight">ALUMNOS</span>?</h2>
                 <div class="max-w-4xl mx-auto mt-8 space-y-6">
                    <!-- Comentario 1 -->
                    <div class="comment-card">
@@ -738,12 +721,20 @@
         const courseInfoSection = document.getElementById('courseInfoSection');
         const initialVideoPrompt = document.getElementById('initialVideoPrompt'); 
         const videoSectionContainer = document.getElementById('videoSectionContainer'); 
+        const pageOverlay = document.getElementById('page-overlay');
         
         let contentUnlocked = false;
 
         function unlockContent() {
             if (contentUnlocked) return; 
             contentUnlocked = true;
+            
+            if (pageOverlay) {
+                pageOverlay.style.opacity = '0';
+                setTimeout(() => {
+                    pageOverlay.style.display = 'none';
+                }, 1000);
+            }
             
             if (initialVideoPrompt) {
                 initialVideoPrompt.classList.add('hidden-prompt');
@@ -767,7 +758,6 @@
        
         window.addEventListener('load', () => {
              renderModules();
-             // El contenido se desbloqueará después de 2 minutos y 30 segundos (150 segundos)
              const unlockDelayInSeconds = 150;
              setTimeout(unlockContent, unlockDelayInSeconds * 1000);
         });
