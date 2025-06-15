@@ -773,11 +773,11 @@
        
         window.addEventListener('load', () => {
              renderModules();
-             const unlockDelayInSeconds = 8;
+             // El contenido se desbloqueará después de 2 minutos y 30 segundos (150 segundos)
+             const unlockDelayInSeconds = 150;
              setTimeout(unlockContent, unlockDelayInSeconds * 1000);
         });
         
     </script>
 </body>
 </html>
-
