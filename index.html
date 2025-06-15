@@ -18,6 +18,10 @@
             --section-bg: #FFFFFF;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             color: var(--dark-text);
@@ -43,23 +47,6 @@
         #courseInfoSection {
             opacity: 0;
             transition: opacity 1.5s ease-in-out;
-        }
-
-        #mainHeader { 
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-            background-color: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid #e0e0e0;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05); 
-        }
-        #mainHeader.header-is-visible {
-            opacity: 1;
-        }
-
-        #mainHeader .brand-text {
-            color: var(--dark-text);
         }
 
         .main-title {
@@ -150,10 +137,10 @@
         }
         .button-primary.large { 
              padding: 1.25rem 3rem; 
-             font-size: 1.25rem; 
-        }
-        .button-primary.large i {
-            margin-left: 0.75rem; 
+             font-size: 1.5rem; 
+             line-height: 1.4;
+             border-radius: 1.5rem;
+             font-weight: 900;
         }
 
         .section {
@@ -443,22 +430,9 @@
     </style>
 </head>
 <body class="antialiased">
-    <!-- Encabezado adaptable -->
-    <header id="mainHeader" class="py-3 shadow-md sticky top-0 z-50 hidden-initially"> 
-        <div class="container mx-auto max-w-screen-xl px-4 sm:px-6 flex justify-between items-center">
-            <div class="flex-shrink-0"> 
-                 <a href="#" class="brand-text font-bold text-2xl flex items-center"><i class="fas fa-pizza-slice accent-color mr-2"></i>Maestro Pizzero</a>
-            </div>
-            <div class="flex-shrink-0 text-right">
-                <a href="https://go.hotmart.com/S100288541D?ap=c7d3" target="_blank" class="button-primary text-xs px-4 py-2"> 
-                    ¡Quiero mi Oferta! <i class="fas fa-tags ml-2"></i>
-                </a>
-            </div>
-        </div>
-    </header>
 
     <div class="container mx-auto max-w-screen-xl p-4 sm:p-6 lg:p-8">
-        <div class="min-h-screen flex flex-col justify-center items-center text-center -mt-20">
+        <div class="min-h-screen flex flex-col justify-center items-center text-center pt-8">
             <div id="videoSectionContainer" class="w-full"> 
                  <h1 class="main-title mb-4">
                     CONVIÉRTETE EN <br><span class="accent-color">MAESTRO PIZZERO</span>
@@ -483,9 +457,17 @@
         
         <div id="courseInfoSection" class="hidden-initially">
             <div class="text-center mb-12 mt-12 relative z-10">
-                <a href="https://go.hotmart.com/S100288541D?ap=c7d3" target="_blank" class="button-primary large animate-pulse">
-                    ¡QUIERO APROVECHAR ESTA OFERTA! <i class="fas fa-rocket ml-2"></i>
-                </a>
+                <div class="inline-block bg-white/60 backdrop-blur-sm p-6 md:p-8 rounded-2xl shadow-lg border">
+                    <p class="font-semibold text-2xl mb-2 text-gray-800">¡Aprovecha esta mega oferta!</p>
+                    <div class="text-8xl lg:text-9xl font-black my-2 text-red-600" style="text-shadow: 3px 3px 0px var(--yellow-cheese), 6px 6px 0px rgba(0,0,0,0.1);">2x1</div>
+                    <p class="font-bold text-2xl text-gray-700 mb-6">¡a tan solo <span class="text-red-pizza">$35 USD</span>!</p>
+                    
+                    <a href="https://go.hotmart.com/S100288541D?ap=c7d3" target="_blank" class="button-primary large animate-pulse">
+                        <span>¡SÍ, QUIERO LA OFERTA AHORA!</span>
+                    </a>
+                    
+                    <a href="#extra-course-section" class="block mt-4 text-gray-600 underline hover:text-red-pizza">¿Cómo reclamo mi segundo curso?</a>
+                </div>
              </div>
         
             <!-- ¿PARA QUIÉN ES ESTE CURSO? -->
@@ -509,23 +491,7 @@
                      </div>
                  </div>
             </section>
-    
-            <!-- PROBLEMATICAS -->
-            <section id="problemas-section" class="section">
-                <div class="content-wrapper md:w-1/2 lg:w-2/3">
-                    <h2 class="section-title light-text text-left">¿Te Suena <span class="highlight-yellow">Familiar</span>?</h2>
-                    <p class="section-subtitle light-text text-left max-w-full">Más del 90% de los estudiantes llegan con alguna de estas problemáticas:</p>
-                    <div class="space-y-4 text-lg text-gray-200">
-                        <p><i class="fas fa-times-circle accent-color mr-3"></i>Su masa no crece, les queda dura, agrietada y se rompe.</p>
-                        <p><i class="fas fa-times-circle accent-color mr-3"></i>No saben qué harina y levadura es la correcta para usar.</p>
-                        <p><i class="fas fa-times-circle accent-color mr-3"></i>En el horno sus pizzas se encogen o no se cocinan bien.</p>
-                        <p><i class="fas fa-times-circle accent-color mr-3"></i>No saben la temperatura y el tiempo correcto para hornear en casa.</p>
-                        <p><i class="fas fa-times-circle accent-color mr-3"></i>No tienen claro cuánta masa usar para diferentes tamaños de pizza.</p>
-                    </div>
-                    <p class="text-left font-bold text-2xl mt-8 text-yellow-300">¡Este curso es la solución que estabas buscando!</p>
-                </div>
-            </section>
-            
+
             <!-- SECCIÓN CONOCE A TU INSTRUCTORA -->
             <section id="instructora-section" class="section">
                 <div class="content-wrapper md:w-1/2">
@@ -627,6 +593,22 @@
                     <img src="img/tes6.jpeg" alt="Testimonio de alumno 6">
                 </div>
             </section>
+            
+             <!-- PROBLEMATICAS -->
+            <section id="problemas-section" class="section">
+                <div class="content-wrapper md:w-1/2 lg:w-2/3">
+                    <h2 class="section-title light-text text-left">¿Te Suena <span class="highlight-yellow">Familiar</span>?</h2>
+                    <p class="section-subtitle light-text text-left max-w-full">Más del 90% de los estudiantes llegan con alguna de estas problemáticas:</p>
+                    <div class="space-y-4 text-lg text-gray-200">
+                        <p><i class="fas fa-times-circle accent-color mr-3"></i>Su masa no crece, les queda dura, agrietada y se rompe.</p>
+                        <p><i class="fas fa-times-circle accent-color mr-3"></i>No saben qué harina y levadura es la correcta para usar.</p>
+                        <p><i class="fas fa-times-circle accent-color mr-3"></i>En el horno sus pizzas se encogen o no se cocinan bien.</p>
+                        <p><i class="fas fa-times-circle accent-color mr-3"></i>No saben la temperatura y el tiempo correcto para hornear en casa.</p>
+                        <p><i class="fas fa-times-circle accent-color mr-3"></i>No tienen claro cuánta masa usar para diferentes tamaños de pizza.</p>
+                    </div>
+                    <p class="text-left font-bold text-2xl mt-8 text-yellow-300">¡Este curso es la solución que estabas buscando!</p>
+                </div>
+            </section>
     
             <!-- GARANTÍA -->
             <section id="garantia-section" class="section">
@@ -641,7 +623,7 @@
             
              <!-- CURSO EXTRA -->
             <section id="extra-course-section" class="section bg-transparent border-none shadow-none p-0">
-                <h2 class="section-title text-center mb-8">¡Y ESO NO ES TODO! <br>LLÉVATE UN CURSO ADICIONAL... <span class="highlight">A ELECCIÓN</span></h2>
+                <h2 class="section-title text-center mb-8">¿YA COMPRASTE TU CURSO? <br>¡RECLAMA TU SEGUNDO CURSO <span class="highlight">TOTALMENTE GRATIS!</span></h2>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <!-- Opción 1: Repostería -->
                     <div class="course-card" style="background-image: url('img/reposteria.png');">
@@ -759,7 +741,6 @@
             `).join('');
         }
        
-        const mainHeader = document.getElementById('mainHeader');
         const courseInfoSection = document.getElementById('courseInfoSection');
         const initialVideoPrompt = document.getElementById('initialVideoPrompt'); 
         const videoSectionContainer = document.getElementById('videoSectionContainer'); 
@@ -779,32 +760,24 @@
 
             if (courseInfoSection) { 
                 courseInfoSection.classList.remove('hidden-initially');
-                setTimeout(() => { // Agrega un pequeño retraso para permitir que el display se aplique antes de la transición
+                setTimeout(() => {
                      courseInfoSection.style.opacity = '1';
                 }, 50);
             }
 
-            if (mainHeader) {
-                mainHeader.classList.remove('hidden-initially');
-                requestAnimationFrame(() => { 
-                    mainHeader.classList.add('header-is-visible'); 
-                });
-            }
-
-            // Mover la sección del video hacia arriba para que se integre con el resto de la página
             if(videoSectionContainer){
                 videoSectionContainer.parentElement.classList.remove('min-h-screen', 'flex', 'flex-col', 'justify-center', 'items-center');
-                videoSectionContainer.parentElement.classList.add('pt-24');
+                videoSectionContainer.parentElement.classList.add('pt-8');
             }
         }
        
         window.addEventListener('load', () => {
              renderModules();
-             // El contenido se desbloqueará después de 2 minutos y 30 segundos (150 segundos)
-             const unlockDelayInSeconds = 150;
+             const unlockDelayInSeconds = 8;
              setTimeout(unlockContent, unlockDelayInSeconds * 1000);
         });
         
     </script>
 </body>
 </html>
+
